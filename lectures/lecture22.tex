@@ -1,1 +1,259 @@
 \chapter{Mar.~27 --- Introductory \texorpdfstring{$p$}{p}-adic Analysis}
+
+\section{\texorpdfstring{$p$}{p}-adic Analysis}
+
+\begin{lemma}
+  If $K$ is a complete non-Archimedean
+  field, then a series
+  $\sum_{n = 1}^\infty a_n$ with $a_n \in K$
+  converges in $K$ if and only if
+  $a_n \to 0$.
+\end{lemma}
+
+\begin{proof}
+  We want
+  $|a_n + a_{n + 1} + \dots + a_m| < \epsilon$
+  for $n, m \gg 0$, but
+  \[
+    |a_n + a_{n + 1} + \dots + a_m|
+    \le \max\{|a_i|\}
+  \]
+  by the ultrametric inequality,
+  so this happens if and only if
+  $a_n \to 0$.
+\end{proof}
+
+\begin{remark}
+  The whole idea of analytic continuation
+  breaks in $p$-adic analysis because the
+  space is not even connected. In fact,
+  discs of the same radius
+  are either disjoint or equal.
+\end{remark}
+
+\begin{definition}
+  For a power series
+  $f(x) = \sum_{n = 0}^\infty a_n x^n$,
+  define its \emph{radius of convergence}
+  to be
+  \[
+    R = \frac{1}{\limsup_{n \to \infty} |a_n|^{1 / n}}.
+  \]
+\end{definition}
+
+\begin{lemma}
+  Let $f(x) = \sum_{n = 1}^\infty a_n x^n$
+  be a power series and $R$ its
+  radius of convergence.
+  Then $f$
+  converges on
+  $\{z \in K : |z| < R\}$
+  and diverges on
+  $\{z \in K : |z| > R\}$.
+  On $\{z \in K : |z| = R\}$,
+  $f$ either converges everywhere or
+  nowhere.
+\end{lemma}
+
+\begin{lemma}
+  Let $b_{i, j} \in K$.
+  If for all $\epsilon > 0$, there exists
+  $M$ such that $|b_{i, j}| < \epsilon$
+  when $\max\{i, j\} \ge M$, then
+  the series $\sum_i \sum_j b_{i, j}$
+  and $\sum_j \sum_i b_{i, j}$
+  both converge and
+  \[
+    \sum_i \sum_j b_{i, j}
+    = \sum_j \sum_i b_{i, j}.
+  \]
+\end{lemma}
+
+\begin{theorem}[Strassmann's theorem]
+  Let $f(x) = \sum_{n = 0}^\infty a_n x^n \ne 0$
+  and suppose that $|a_n| \to 0$
+  (i.e. $f$ converges on
+  $D = \{|x| \le 1\}$). Define
+  $N = N(f)$ by $|a_N| = \max_n |a_n|$
+  and $|a_n| < |a_N|$ for $n > N$.
+  Then $f(x)$ has at most $N$ zeroes in $D$.
+\end{theorem}
+
+\begin{proof}
+  The proof is by induction on $N$.
+  First consider the case $N = 0$, and
+  suppose otherwise that $f(\alpha) = 0$
+  for some $\alpha \in D$. Then we have
+  \[
+    |a_0|
+    = \left|-\sum_{n \ge 1} a_n \alpha^n\right|
+    \le \max_{n \ge 1} |a_n| |\alpha|^n
+    \le \max_{n \ge 1} |a_n
+    < |a_0|,
+  \]
+  which is a contradiction.
+  Now let $N \ge 1$. Suppose
+  $f(\alpha) = 0$ for some $\alpha \in D$.
+  Then for any $\beta \in D$,
+  \[
+    f(\beta)
+    = f(\beta) - f(\alpha)
+    = \sum_{n \ge 1} a_n (\beta^n - \alpha^n)
+    = (\beta - \alpha)
+    \underbrace{\sum_{n \ge 1} \sum_{j = 0}^{n - 1} a_n \beta^j \alpha^{n - 1 - j}}_{g(\beta)}.
+  \]
+  Then $g(x) = \sum_{j = 0}^\infty b_j x^j$,
+  where $b_j = \sum_{t = 0}^\infty a_{j + 1 + t} \alpha^t$.
+  Then $N(g) = N(f) - 1$, so by induction
+  $g$ has at most $N - 1$ zeroes in
+  $D$, which implies that $f$ has at most $N$ zeroes in $D$.
+\end{proof}
+
+\begin{remark}
+  We will often be interested in the
+  case $K = \Q_p$ and $D = \Z_p$.
+  Note that $\Z \subseteq \Z_p$
+  and $\Z_p$ is
+  bounded in the $p$-adic topology.
+\end{remark}
+
+\begin{remark}
+  Strassmann's theorem is a special
+  case of \emph{Newton polygons}.
+\end{remark}
+
+\begin{definition}
+  For an integer $n \ge 0$ and
+  $t \in \Q_p$, define
+  the \emph{binomial coefficients}
+  by $\binom{t}{0} := 1$ and
+  \[
+    \binom{t}{n}
+    = \frac{t(t - 1) \cdots (t - n + 1)}{n!}, \quad n > 0.
+  \]
+\end{definition}
+
+\begin{lemma}
+  If $t \in \Z_p$, then
+  $\binom{t}{m} \in \Z_p$.
+\end{lemma}
+
+\begin{proof}
+  We have $\binom{t}{n} \in \Z$ for
+  all $t \in \Z$ and
+  $\binom{t}{m}$ is continuous in $t$.
+  Since $\Z$ is dense in $\Z_p$,
+  $|\binom{t}{m}|_p \le 1$ for all
+  $t \in \Z$ implies that
+  $|\binom{t}{m}|_p \le 1$ for all
+  $t \in \Z_p$.
+\end{proof}
+
+\begin{theorem}[$p$-adic binomial theorem]
+  Consider $(1 + x)^t$.
+  \begin{enumerate}
+    \item If $t \in \N$, then
+      $(1 + x)^t = \sum_{n = 0}^t \binom{t}{n} x^n$.
+      If $t \in \Z$, then
+      $(1 + x)^t = \sum_{n = 0}^\infty \binom{t}{n} x^n$
+      for $x \in p \Z_p$
+      (i.e. $|x|_p < 1$).
+    \item If $|x|_p < 1$, then there
+      exists $\Phi_x(t) = \sum_{n = 0}^\infty \gamma_n t^n \in \Q_p \llbracket t \rrbracket$
+      converging for all $t \in \Z_p$
+      such that $\Phi_x(t) = (1 + x)^t$
+      for all $t \in \Z$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  (2) Suppose first that $t \in \N$. Then
+  we have
+  \[
+    (1 + x)^t
+    = \sum_{n = 0}^\infty t(t - 1) \cdots (t - n + 1) \frac{x^n}{n!}.
+  \]
+  Since $|x|_p \le 1 / p$, we have
+  $|x^n / n!|_p \to 0$ as $n \to \infty$, so
+  we can rearrange the series to get
+  \[
+    (1 + x)^t = \sum_{n = 0}^\infty \gamma_n t^n
+  \]
+  where $\gamma_n = \gamma_n(x) \in \Q_p$
+  is independent of $t$ and
+  $|\gamma_n|_p \to 0$.
+  See the notes for the case $n < 0$.
+\end{proof}
+
+\begin{exercise}
+  Prove the following:
+  \begin{enumerate}
+    \item $\displaystyle \log_p(1 + x) = \sum_{n = 1}^\infty (-1)^{n + 1} \frac{x^n}{n}$
+      converges if and only if $|x|_p < 1$.
+    \item $\displaystyle \exp_p(x) = \sum_{n = 0}^\infty \frac{x^n}{n!}$
+      converges if and only if
+      $|x|_p < p^{-1 / (p - 1)}$
+      (i.e. $v_p(x) \ge 1 / (p - 1)$).
+  \end{enumerate}
+\end{exercise}
+
+\begin{remark}
+  Note that $\exp : \C \to \C^\times$ is
+  entire, while $\exp_p$ is not.
+\end{remark}
+
+\section{Applications to Diophantine Equations}
+
+\begin{example}
+  We show that the only integer
+  solution to $x^3 - 11y^3 = 1$ is
+  $(1, 0)$.
+
+  First note that if
+  $x^3 - 11 y^3 = 1$, then
+  $x - y \sqrt[3]{11}$ is a unit of
+  norm $1$ in $\Z[\sqrt[3]{11}]$. Let
+  $\alpha = \sqrt[3]{11}$. The
+  fundamental unit in
+  $\Z[\alpha]$ is
+  $u = 18\alpha^2 + 40\alpha + 89$, and
+  $v = 1 / u = -2\alpha^2 + 4\alpha + 1$.
+  Since every unit of $\Z[\alpha]$
+  with norm $1$ is a power of $v$,
+  we can write $x - y \sqrt[3]{11} = v^n$
+  for some $n \in \Z$. We will show $n = 0$.
+
+  Note that $19$ splits completely
+  in $K = \Q(\alpha)$, so equivalently,
+  $x^3 - 11$ has $3$ distinct roots
+  modulo $19$. So by Hensel's lemma,
+  we get $\alpha_1, \alpha_2, \alpha_3 \in \Z_{19}$
+  satisfying $\alpha_i^3 = 11$.
+  One can compute that
+  \begin{align*}
+    \alpha_1 &= -3 + 5 \cdot 19 + O(19^2), \\
+    \alpha_2 &= -2 + 8 \cdot 19 + O(19^2), \\
+    \alpha_3 &= 5 + 6 \cdot 19 + O(19^2).
+  \end{align*}
+  The $\alpha_i$ give $3$ embeddings
+  $\psi_i : K \to \Q_{19}$.
+  Let $v_i = \psi_i(v)$, which one can compute
+  to be
+  \begin{align*}
+    v_1 &= 9 + 2 \cdot 19 + O(19^2), \\
+    v_2 &= 4 + 0 \cdot 19 + O(19^2), \\
+    v_3 &= 9 + 6 \cdot 19 + O(19^2).
+  \end{align*}
+  Since $x - y \sqrt[3]{11} = v^n$,
+  we have $x - y \alpha_i = v_i^n$ for
+  $i = 1, 2, 3$, so
+  \[
+    \alpha_1 v_1^n + \alpha_2 v_2^n + \alpha_3 v_3^n
+    = \sum_i (x\alpha_i - y \alpha_i^2)
+    = 0,
+  \]
+  where we get $\alpha_1 + \alpha_2 + \alpha_3 = \alpha_1^2 + \alpha_2^2 + \alpha_3^2 = 0$
+  by looking at the coefficients of
+  $x^3 - 11^j$. We continue the
+  rest of the argument next class.
+\end{example}
